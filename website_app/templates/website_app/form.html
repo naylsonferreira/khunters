@@ -1,0 +1,20 @@
+{% extends "website_app/includes/base.html" %}
+{% block content %}
+    <div class="ui container text" style="margin-top:2em;min-height:20em">
+      <form class="ui form formulario " method="post" enctype="multipart/form-data">{% csrf_token %}
+
+        {{ form.non_field_errors }}
+        {{ form.mensagem }}
+        {% for field in form %}
+        <div class="field">
+          <label>{{ field.label_tag }} {{ field.errors }}</label>
+          {{ field }}
+        </div>
+        {% endfor %}
+
+        <input type="text" name="autor" value="{{request.user.pk}}" style="display:none" />
+        <p></p>
+        <button class="ui button fluid blue" type="submit">Salvar</button>
+      </form>
+    </div>
+{% endblock %}

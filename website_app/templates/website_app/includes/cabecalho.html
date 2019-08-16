@@ -1,0 +1,70 @@
+{% load static %}
+<title>Khunters-Admin</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta http-equiv="Cache-control" content="no-cache">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" charset="utf-8"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<script charset="utf-8">
+  $(document)
+  .ready(function() {
+    // fix menu when passed
+    $('.masthead')
+    .visibility({
+      once: false,
+      onBottomPassed: function() {
+        $('.fixed.menu').transition('fade in');
+      },
+      onBottomPassedReverse: function() {
+        $('.fixed.menu').transition('fade out');
+      }
+    });
+    // create sidebar and attach to menu open
+    $('.ui.sidebar').sidebar('attach events', '.toc.item');
+    $('.ui.checkbox').checkbox();
+    // $('.special.card').dimmer({on: 'hover'});
+    $( "#id_categoria" ).addClass("ui dropdown");
+    $( "#id_tag" ).addClass("ui dropdown");
+    $('.ui.dropdown').dropdown();
+  });
+</script>
+<style media="screen">
+  .hidden.menu {
+    display: none;
+  }
+  .barra .menu .item_menu_horizontal{
+    margin: 0 auto !important;
+  }
+  .menu .toc.item {
+    display: none !important;
+    margin-left: 0px !important;
+  }
+  @media only screen and (max-width: 700px) {
+    .ui.fixed.menu {
+      display: none !important;
+    }
+    .barra{
+      background: #000000 !important;
+      position: fixed;
+      z-index: 101;
+      width: 100%;
+      top: 0;
+    }
+    .barra .menu{
+      padding: 0px !important;
+    }
+    .item_menu_horizontal{
+      display: none !important;
+    }
+    .secondary.pointing.menu .item,
+    .secondary.pointing.menu .menu {
+      display: none;
+    }
+    .menu .toc.item {
+      display: block !important;
+    }
+  }
+</style>

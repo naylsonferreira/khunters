@@ -1,0 +1,10 @@
+<a class="item" href="{% url 'website_app:Index' %}" >Inicio</a>
+{% if user.is_authenticated %}
+<a class="item {{item_active_jogador}}" href="{% url 'website_app:Jogadores' %}">Jogadores</a>
+<a class="item {{item_active_objeto_er}}" href="{% url 'website_app:Objeto_ers' %}">Objetos de Aprendizagem</a>
+<a class="item {{item_active_objeto_er_map}}" href="{% url 'website_app:Objeto_er_maps' %}">Objetos no Mapa</a>
+<a class="item">Estatísticas</a>
+<a  class="right menu item" href="{% url 'website_app:Logout' %}">Sair</a>
+{% else %}
+<a class="right menu item" href="{% url 'website_app:Login' %}">Entrar</a>
+{% endif %}

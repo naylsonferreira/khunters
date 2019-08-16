@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy"
+     xml:base="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:learningstrategy="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy">
+        <rdfs:comment xml:lang="en">That ontology was developed for storage of the index of learning of the users, according of the type of content and hypermedia used. The same presents three main classes: User, Content and Hypermedia. These classes are related with each other by means of properties that permits relate user, content, hypermedia and the index of learning. The subclasses of Content was defined according to the parameters of brazilian education ministry (MEC).</rdfs:comment>
+        <owl:versionInfo>1.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasAccess -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasAccess">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#isAccessed"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Property that indicates that one user access a content</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#isAccessed -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#isAccessed">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User"/>
+        <rdfs:comment xml:lang="en">Property that indicates that a content is accessed by a user</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#isTransmitted -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#isTransmitted">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#transmits"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Hypermedia"/>
+        <rdfs:comment xml:lang="en">Property that indicates that a content is transmitted by a hypermedia</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#transmits -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#transmits">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Hypermedia"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Property that indicates that a hypermedia transmits a content</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasAge -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasAge">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment xml:lang="en">Property that indicates the age of the user</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasAttempts -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasAttempts">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Hypermedia"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment xml:lang="en">Property that indicates the attempts used to answear a question</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasClassification -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasClassification">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment xml:lang="en">Property that indicates a User classification, whether autistic or not and the level of autism</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasDificultyLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasDificultyLevel">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:comment xml:lang="en">Property that indicates the level of dificulty of a content</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasGender -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasGender">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">Property that indicates the gender of the user</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasIdentificationNumber -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#hasIdentificationNumber">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment xml:lang="en">Property that indicates the number of identification of the user</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#presentsLearningIndex -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#presentsLearningIndex">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Hypermedia"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:comment xml:lang="en">Property that indicates the learning index related to hypermedia used</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Art -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Art">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about art knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Artes</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content">
+        <rdfs:comment xml:lang="en">Content provided by the learning objects such as math, geograph and others according to MEC.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#English -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#English">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Foreign_Languages"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Spanish"/>
+        <rdfs:comment xml:lang="en">Contents about english knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Ingles</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Foreign_Languages -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Foreign_Languages">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about foreign languages knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Linguas Estrangeiras</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Geography -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Geography">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about geography knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Geografia</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#History -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#History">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about history knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Historia</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Hypermedia -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Hypermedia">
+        <rdfs:comment xml:lang="en">Class that defines the types of hypermidia used by the learning object</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Math -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Math">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about math knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Matematica</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Miscellaneous -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Miscellaneous">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about various areas of knowledgement</rdfs:comment>
+        <rdfs:label xml:lang="pt">Diversos</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Natural_Sciences -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Natural_Sciences">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about natural sciences knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Ciencias Naturais</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Physical_Education -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Physical_Education">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about physical education knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Educacao Fisica</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Portuguese_Language -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Portuguese_Language">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+        <rdfs:comment xml:lang="en">Contents about portuguese language knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Lingua Portuguesa</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Spanish -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Spanish">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Foreign_Languages"/>
+        <rdfs:comment xml:lang="en">Contents about spanish knowledge area</rdfs:comment>
+        <rdfs:label xml:lang="pt">Espanhol</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User">
+        <rdfs:comment xml:lang="en">Person that access contents by means of hypermedia</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Art"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Foreign_Languages"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Geography"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#History"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Math"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Miscellaneous"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Natural_Sciences"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Physical_Education"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Portuguese_Language"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Content"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#Hypermedia"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/khunters/ontologies/2013/11/learningstrategy#User"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+
