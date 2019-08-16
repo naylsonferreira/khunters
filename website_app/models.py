@@ -54,7 +54,7 @@ class Objeto_er(models.Model):
         return str(self.titulo)
 
     def get_absolute_url(self):
-        return reverse('website_app:index')
+        return reverse('website_app:Objeto_ers')
 
 class Objeto_er_map(models.Model):
     latitude = models.CharField('Latitude',max_length=255,null=True,blank=True)
@@ -64,7 +64,7 @@ class Objeto_er_map(models.Model):
         return str(self.objeto_er)
 
     def get_absolute_url(self):
-        return reverse('website_app:index')
+        return reverse('website_app:Objeto_er_maps')
 
 class Captura(models.Model):
     latitude = models.CharField(max_length=255,null=True,blank=True)

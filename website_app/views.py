@@ -4,14 +4,6 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView,CreateView,UpdateView
 from .models import *
 
-def lista_fields(modelo,lista_ignore,max=8):
-    lista = modelo._meta.get_fields()
-    resultado = []
-    for i in lista:#Ignorando ID
-        if not i.name in lista_ignore:
-            resultado.append(i)
-    return resultado[:max]
-
 def index(request):
     contexto = {}
     return render(request,'website_app/index.html',contexto)
@@ -19,7 +11,6 @@ def index(request):
 def Jogadores(request):
     contexto = {
         "lista":Jogador.objects.all(),
-        "campos": lista_fields(Jogador,['id','password'],5),
     }
     contexto["item_active_jogador"] = "active"
     return render(request,'website_app/jogadores.html',contexto)
@@ -54,7 +45,6 @@ class JogadorDeleteView(DeleteView):
 def Objeto_ers(request):
     contexto = {
         "lista":Objeto_er.objects.all(),
-        "campos": lista_fields(Objeto_er,["id"],6),
     }
     contexto["item_active_objeto_er"] = "active"
     return render(request,'website_app/objeto_ers.html',contexto)
@@ -94,7 +84,6 @@ def Objeto_er_maps(request):
     objeto_er_maps = Objeto_er_map.objects.all()
     contexto = {
         "lista":Objeto_er_map.objects.all(),
-        "campos": lista_fields(Objeto_er_map,["id"],6),
     }
     contexto["item_active_objeto_er_map"] = "active"
     return render(request,'website_app/objeto_er_maps.html',contexto)
