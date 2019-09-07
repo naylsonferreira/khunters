@@ -1,20 +1,49 @@
 {% extends "website_app/includes/base.html" %}
 {% block content %}
-    <div class="ui container text" style="margin-top:2em;min-height:20em">
-      <form class="ui form formulario " method="post" enctype="multipart/form-data">{% csrf_token %}
+<div class="ui container text" style="min-height:20em">
+  {%if item_active_objeto_er_map %}
+  <!-- Inicio mapa -->
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+  <div id='map' style="width: 100% !important;height: 25em !important;margin-bottom: 2em;"></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibmF5bHNvbmZzYSIsImEiOiJjanp2dGd0eXowMW4xM2hsZ2pkaHowdWtkIn0.wBsVgEtB34qVagCHzalIQg';
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-37.323209, -5.206060], // starting position
+      zoom: 17 // starting zoom
+    });
+    var ponto = new mapboxgl.Marker().setLngLat([-37.323209, -5.206060]).addTo(map);
+    map.on('click', function (e) {
+      ponto.setLngLat(e.lngLat);
+      map.setCenter(e.lngLat);
+      $("#id_latitude").val(e.lngLat.lat);
+      $("#id_longitude").val(e.lngLat.lng);
+    });
+    $(document).ready(function () {
+      ponto.setLngLat([$("#id_longitude").val(), $("#id_latitude").val()]);
+      map.setCenter([$("#id_longitude").val(), $("#id_latitude").val()]);
+    });
+  </script>
+  <!-- Fim mapa -->
+  {%endif%}
+  <form class="ui form formulario " method="post" enctype="multipart/form-data">{% csrf_token %}
 
-        {{ form.non_field_errors }}
-        {{ form.mensagem }}
-        {% for field in form %}
-        <div class="field">
-          <label>{{ field.label_tag }} {{ field.errors }}</label>
-          {{ field }}
-        </div>
-        {% endfor %}
-
-        <input type="text" name="autor" value="{{request.user.pk}}" style="display:none" />
-        <p></p>
-        <button class="ui button fluid blue" type="submit">Salvar</button>
-      </form>
+    {{ form.non_field_errors }}
+    {{ form.mensagem }}
+    {% for field in form %}
+    <div class="field">
+      <label>{{ field.label_tag }} {{ field.errors }}</label>
+      {{ field }}
     </div>
+    {% endfor %}
+
+    <input type="text" name="autor" value="{{request.user.pk}}" style="display:none" />
+    <p></p>
+    <button class="ui button fluid blue" type="submit">Salvar</button>
+  </form>
+
+</div>
+
 {% endblock %}
