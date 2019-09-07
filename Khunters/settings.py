@@ -147,7 +147,7 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
-STATIC_URL = '/static/'
+STATIC_URL = 'https://arquivosoverload.000webhostapp.com/static/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = '/media/'
