@@ -31,9 +31,14 @@ class Jogador(models.Model):
     def get_absolute_url(self):
         return reverse('website_app:Jogadores')
 
+class Personagem(models.Model):
+    descricao = models.CharField("Descrição",max_length=100)
+    prefab = models.CharField(max_length=50)
+    def __str__(self):
+        return str(self.descricao)
+
 class Objeto_er(models.Model):
-    tipo_de_objeto = models.CharField('Tipo de objeto de aprendizagem',max_length=10,choices=TIPO_DE_OBJETO,null=True,blank=True)
-    # Tipo pode ser Monstro ou Mensagem
+    personagem = models.ForeignKey(Personagem, on_delete=models.PROTECT,null=True,blank=True)
     titulo = models.CharField('Titulo do objeto de aprendizagem',max_length=255,null=True,blank=True)
     sub_titulo = models.CharField('Sub titulo',max_length=255,null=True,blank=True)
     descricao = models.CharField('Descrição',max_length=255,null=True,blank=True)
@@ -51,7 +56,7 @@ class Objeto_er(models.Model):
     #Audio, Video
     duracao = models.IntegerField("Duração em Minutos",default=0,null=True,blank=True)
     def __str__(self):
-        return str(self.titulo)
+        return str(self.personagem)+" - "+str(self.titulo)
 
     def get_absolute_url(self):
         return reverse('website_app:Objeto_ers')

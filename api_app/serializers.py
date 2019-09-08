@@ -14,9 +14,12 @@ class Objeto_erSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class Objeto_er_mapSerializer(serializers.ModelSerializer):
+    prefab = serializers.SerializerMethodField()
     class Meta:
         model = Objeto_er_map
         fields = "__all__"
+    def get_prefab(self, obj):
+        return obj.objeto_er.personagem.prefab
 
 class CapturaSerializer(serializers.ModelSerializer):
     class Meta:

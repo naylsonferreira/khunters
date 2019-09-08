@@ -37,7 +37,6 @@ DEFINITION_C = (('',''),('Definition_C','C'))
 DEFINITION_D = (('',''),('Definition_D','D'))
 DEFINITION_E = (('',''),('Definition_E','E'))
 
-TIPO_DE_OBJETO = (('1','Monstro'),('2','Mensagem'))
 TIPO_DE_ARQUIVO = (('1','Text'),('2','Image'),('3','Audio'),('4','Video'))
 DIFICULDADE = (('1','Muito Fácil'),('2','Fácil'),('3','Mediano'),('4','Difícil'),('5','Muito Difícil'))
 IDIOMA = (('1','Portugues'),('2','Espanhol'),('3','Ingles'))
