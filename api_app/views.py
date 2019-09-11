@@ -2,10 +2,13 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework import serializers, viewsets
+from django.http import JsonResponse,HttpResponse
 from .serializers import *
-
+import json
+from math import sqrt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from geopy.distance import distance
 
 #Acesso ao usuario via Token
 #request.user will be a Django User instance.
@@ -34,3 +37,30 @@ class Objeto_er_mapList(viewsets.ModelViewSet):
 class CapturaList(viewsets.ModelViewSet):
     queryset = Captura.objects.all()
     serializer_class = CapturaSerializer
+
+def personagens_proximos(request):
+    try:
+        dados = json.loads(request.body)
+        latitude = float(dados["localizacao"]["latitude"])
+        longitude = float(dados["localizacao"]["longitude"])
+        localizacao_player = (latitude,longitude)
+    except:
+        erro = {
+            "localizacao":{
+                "latitude":"",
+                "longitude":""
+                }
+            }
+        return JsonResponse(erro,status=400,safe=False)
+    personagens = []
+    for i in Objeto_er_map.objects.all():
+        localizacao_personagem = (i.latitude,i.longitude)
+        distancia = 1000 * distance(localizacao_player, localizacao_personagem).km
+        if distancia <= 500: # Mostrar personagens com 500 metros ou menos do jogador
+            j = Objeto_er_mapSerializer(i)
+            personagens.append(j.data)
+    # personagens = Objeto_er_mapSerializer(personagens, many=True)
+    data = {
+        "personagens":personagens
+    }
+    return JsonResponse(data,safe=False)
