@@ -46,6 +46,7 @@ def personagens_proximos(request):
         latitude = float(dados["localizacao"]["latitude"])
         longitude = float(dados["localizacao"]["longitude"])
         localizacao_player = (latitude,longitude)
+        print(dados)
     except:
         erro = {
             "localizacao":{
