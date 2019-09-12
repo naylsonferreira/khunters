@@ -8,6 +8,7 @@ import json
 from math import sqrt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.views.decorators.csrf import csrf_exempt
 from geopy.distance import distance
 
 #Acesso ao usuario via Token
@@ -38,6 +39,7 @@ class CapturaList(viewsets.ModelViewSet):
     queryset = Captura.objects.all()
     serializer_class = CapturaSerializer
 
+@csrf_exempt
 def personagens_proximos(request):
     try:
         dados = json.loads(request.body)
