@@ -43,15 +43,15 @@ class CapturaList(viewsets.ModelViewSet):
 def personagens_proximos(request):
     try:
         dados = json.loads(request.body)
-        latitude = float(dados["localizacao"]["latitude"])
-        longitude = float(dados["localizacao"]["longitude"])
+        latitude = float(dados["Localizacao"]["Latitude"])
+        longitude = float(dados["Localizacao"]["Longitude"])
         localizacao_player = (latitude,longitude)
         print(dados)
     except:
         erro = {
-            "localizacao":{
-                "latitude":"",
-                "longitude":""
+            "Localizacao":{
+                "Latitude":"",
+                "Longitude":""
                 }
             }
         return JsonResponse(erro,status=400,safe=False)
