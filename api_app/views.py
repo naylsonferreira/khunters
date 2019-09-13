@@ -41,12 +41,12 @@ class CapturaList(viewsets.ModelViewSet):
 
 @csrf_exempt
 def personagens_proximos(request):
+    print(request)
     try:
         dados = json.loads(request.body)
         latitude = float(dados["Localizacao"]["Latitude"])
         longitude = float(dados["Localizacao"]["Longitude"])
         localizacao_player = (latitude,longitude)
-        print(dados)
     except:
         erro = {
             "Localizacao":{
