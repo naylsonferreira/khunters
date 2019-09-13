@@ -41,7 +41,7 @@ class CapturaList(viewsets.ModelViewSet):
 
 @csrf_exempt
 def personagens_proximos(request):
-    print(request)
+    print(request.body)
     try:
         dados = json.loads(request.body)
         latitude = float(dados["Localizacao"]["Latitude"])
