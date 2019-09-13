@@ -63,7 +63,4 @@ def personagens_proximos(request):
             j = Objeto_er_mapSerializer(i)
             personagens.append(j.data)
     # personagens = Objeto_er_mapSerializer(personagens, many=True)
-    data = {
-        "personagens":personagens
-    }
-    return JsonResponse(data,safe=False)
+    return JsonResponse(personagens,safe=False)
