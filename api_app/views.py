@@ -39,21 +39,15 @@ class CapturaList(viewsets.ModelViewSet):
     queryset = Captura.objects.all()
     serializer_class = CapturaSerializer
 
+
 @csrf_exempt
 def personagens_proximos(request):
-    print(request.body)
     try:
-        dados = json.loads(request.body)
-        latitude = float(dados["Localizacao"]["Latitude"])
-        longitude = float(dados["Localizacao"]["Longitude"])
+        latitude = float(request.headers["Latitude"])
+        longitude = float(request.headers["Longitude"])
         localizacao_player = (latitude,longitude)
     except:
-        erro = {
-            "Localizacao":{
-                "Latitude":"",
-                "Longitude":""
-                }
-            }
+        erro = "Enviar a localizacao latitude e longitude via cabeçalho"
         return JsonResponse(erro,status=400,safe=False)
     personagens = []
     for i in Objeto_er_map.objects.all():
