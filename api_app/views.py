@@ -53,7 +53,7 @@ def personagens_proximos(request):
     for i in Objeto_er_map.objects.all():
         localizacao_personagem = (i.latitude,i.longitude)
         distancia = 1000 * distance(localizacao_player, localizacao_personagem).km
-        if distancia <= 10: # Mostrar personagens com 500 metros ou menos do jogador
+        if distancia <= 100: # Mostrar personagens com 500 metros ou menos do jogador
             j = Objeto_er_mapSerializer(i)
             personagens.append(j.data)
     # personagens = Objeto_er_mapSerializer(personagens, many=True)
