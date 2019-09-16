@@ -34,9 +34,11 @@ class Jogador(models.Model):
 class Personagem(models.Model):
     descricao = models.CharField("Descrição",max_length=100)
     prefab = models.CharField(max_length=50)
-    tamanho = models.CharField("Tamanho(Usar virgula): ",max_length=10,default="1,0")
+    tamanho = models.CharField("Tamanho(Usar virgula): ",max_length=10,default="1.0")
     def __str__(self):
         return str(self.descricao)
+    class Meta:
+        ordering = ('descricao',)
 
 class Objeto_er(models.Model):
     personagem = models.ForeignKey(Personagem, on_delete=models.PROTECT,null=True,blank=True)
