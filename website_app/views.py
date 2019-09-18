@@ -82,10 +82,15 @@ class Objeto_erDeleteView(DeleteView):
 
 def Objeto_er_maps(request):
     objeto_er_maps = Objeto_er_map.objects.all()
+    lista = []
+    for i in objeto_er_maps:
+        lista.append([float(i.longitude),float(i.latitude)])
     contexto = {
         "lista":Objeto_er_map.objects.all(),
+        "lista_js":lista
     }
     contexto["item_active_objeto_er_map"] = "active"
+    # return HttpResponse(lista)
     return render(request,'website_app/objeto_er_maps.html',contexto)
 
 class Objeto_er_mapCreate(CreateView):

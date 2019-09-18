@@ -11,14 +11,20 @@
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [-37.323209, -5.206060], // starting position
-      zoom: 17 // starting zoom
+      zoom: 13 // starting zoom
     });
-    var ponto = new mapboxgl.Marker().setLngLat([-37.323209, -5.206060]).addTo(map);
+    // var ponto = new mapboxgl.Marker({color:"#E8310A"}).setLngLat([-37.323209, -5.206060]).addTo(map);
+    var lista_pontos = {{lista_js}}; // Interpolador Django {{  }}
+    
     $(document).ready(function(){
+      lista_pontos.forEach(element => {
+      new mapboxgl.Marker().setLngLat(element).addTo(map);
+    });
       $(".objeto_er_map").on("click",function(e){
-        console.log(e.target.dataset.lng);
-        ponto.setLngLat([e.target.dataset.lng,e.target.dataset.lat]);
+        // console.log(e.target.dataset.lng); .Marker({color:"#E8310A"})
+        //ponto.setLngLat([e.target.dataset.lng,e.target.dataset.lat]);
         map.setCenter([e.target.dataset.lng,e.target.dataset.lat]);
+        map.setZoom(18);
       })
     });
   </script>

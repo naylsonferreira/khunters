@@ -12,7 +12,7 @@
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [-37.323209, -5.206060], // starting position
-      zoom: 17 // starting zoom
+      zoom: 13 // starting zoom
     });
     var ponto = new mapboxgl.Marker().setLngLat([-37.323209, -5.206060]).addTo(map);
     map.on('click', function (e) {
@@ -22,8 +22,8 @@
       $("#id_longitude").val(e.lngLat.lng);
     });
     $(document).ready(function () {
-      ponto.setLngLat([$("#id_longitude").val(), $("#id_latitude").val()]);
-      map.setCenter([$("#id_longitude").val(), $("#id_latitude").val()]);
+      //ponto.setLngLat([$("#id_longitude").val(), $("#id_latitude").val()]);
+      //map.setCenter([$("#id_longitude").val(), $("#id_latitude").val()]);
     });
   </script>
   <!-- Fim mapa -->
