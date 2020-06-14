@@ -1,1 +1,1 @@
-web: gunicorn Khunters.wsgi
+web: gunicorn khunters.wsgi
