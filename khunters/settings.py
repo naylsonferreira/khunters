@@ -147,7 +147,7 @@ STATIC_URL = get_env('STATIC_URL')
 STATIC_ROOT = get_env('STATIC_ROOT')
 MEDIA_URL = get_env('MEDIA_URL')
 MEDIA_ROOT = os.path.join(BASE_DIR, get_env('MEDIA_ROOT'))
-
+FTP_STORAGE_LOCATION = get_env('FTP_STORAGE_LOCATION')
 CORS_ORIGIN_ALLOW_ALL = True
 
 from corsheaders.defaults import default_headers

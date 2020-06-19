@@ -4,8 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
-# from storages.backends.ftp import FTPStorage
-# SERVIDOR_FTP_WEB = FTPStorage()
+from storages.backends.ftp import FTPStorage
+SERVIDOR_FTP_WEB = FTPStorage()
 from .models_includes import *
 
 class Jogador(models.Model):
@@ -54,8 +54,8 @@ class Objeto_er(models.Model):
     idioma = models.CharField('Idioma',max_length=10,choices=IDIOMA,null=True,blank=True)
     #Imagem
     #arquivo = models.FileField(upload_to='arquivos/objeto_er/',storage=SERVIDOR_FTP_WEB)
-    arquivo_1 = models.FileField('Arquivo Principal',upload_to='arquivos/objeto_er/',null=True,blank=True)
-    arquivo_2 = models.FileField('Arquivo Secundário:',upload_to='arquivos/objeto_er/',null=True,blank=True)
+    arquivo_1 = models.FileField('Arquivo Principal',upload_to='arquivos/objeto_er/',null=True,blank=True,storage=SERVIDOR_FTP_WEB)
+    arquivo_2 = models.FileField('Arquivo Secundário:',upload_to='arquivos/objeto_er/',null=True,blank=True,storage=SERVIDOR_FTP_WEB)
     #Audio, Video
     duracao = models.IntegerField("Duração em Minutos",default=0,null=True,blank=True)
     def __str__(self):
