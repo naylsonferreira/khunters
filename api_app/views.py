@@ -43,8 +43,8 @@ class CapturaList(viewsets.ModelViewSet):
 @csrf_exempt
 def personagens_proximos(request):
     try:
-        latitude = float(request.headers["Latitude"])
-        longitude = float(request.headers["Longitude"])
+        latitude = float(request.headers["Latitude"].replace(",","."))
+        longitude = float(request.headers["Longitude"].replace(",","."))
         localizacao_player = (latitude,longitude)
     except:
         erro = "Enviar a localizacao latitude e longitude via cabeçalho"
@@ -53,8 +53,12 @@ def personagens_proximos(request):
     for i in Objeto_er_map.objects.all():
         localizacao_personagem = (i.latitude,i.longitude)
         distancia = 1000 * distance(localizacao_player, localizacao_personagem).km
-        if distancia <= 50: # Mostrar personagens com 50 metros ou menos do jogador
+        if distancia <= 500: # Mostrar personagens com 50 metros ou menos do jogador
             j = Objeto_er_mapSerializer(i)
             personagens.append(j.data)
     # personagens = Objeto_er_mapSerializer(personagens, many=True)
-    return JsonResponse(personagens,safe=False)
+    resultado = {
+        "personagens":personagens
+    }
+    print(resultado)
+    return JsonResponse(resultado,safe=False)
