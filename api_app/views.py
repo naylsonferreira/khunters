@@ -43,6 +43,7 @@ class CapturaList(viewsets.ModelViewSet):
 @csrf_exempt
 def personagens_proximos(request):
     try:
+        print("aqui","\n")
         latitude = float(request.headers["Latitude"].replace(",","."))
         longitude = float(request.headers["Longitude"].replace(",","."))
         localizacao_player = (latitude,longitude)
