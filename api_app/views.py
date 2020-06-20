@@ -46,6 +46,7 @@ def personagens_proximos(request):
         latitude = float(request.headers["Latitude"].replace(",","."))
         longitude = float(request.headers["Longitude"].replace(",","."))
         localizacao_player = (latitude,longitude)
+        print(localizacao_player)
     except:
         erro = "Enviar a localizacao latitude e longitude via cabeçalho"
         return JsonResponse(erro,status=400,safe=False)
