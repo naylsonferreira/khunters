@@ -39,6 +39,13 @@ class CapturaList(viewsets.ModelViewSet):
     queryset = Captura.objects.all()
     serializer_class = CapturaSerializer
 
+def criar_automaticamente(latitude,longitude):
+    novo = Objeto_er_map()
+    novo.objeto_er = Objeto_er.objects.all().first()
+    novo.latitude = latitude - 0.00030
+    novo.longitude = longitude
+    novo.save()
+    
 
 @csrf_exempt
 def personagens_proximos(request):
@@ -59,6 +66,7 @@ def personagens_proximos(request):
                 personagens.append(j.data)
         except:
             pass
+    if len(personagens) == 0 : criar_automaticamente(latitude,longitude)
     resultado = {
         "personagens":personagens
     }
