@@ -40,11 +40,16 @@ class CapturaList(viewsets.ModelViewSet):
     serializer_class = CapturaSerializer
 
 def criar_automaticamente(latitude,longitude):
-    novo = Objeto_er_map()
-    novo.objeto_er = Objeto_er.objects.all().first()
-    novo.latitude = latitude - 0.00030
-    novo.longitude = longitude
-    novo.save()
+    novo1 = Objeto_er_map()
+    novo1.objeto_er = Objeto_er.objects.all().first()
+    novo1.latitude = latitude - 0.0002
+    novo1.longitude = longitude - 0.0002
+    novo1.save()
+    novo2 = Objeto_er_map()
+    novo2.objeto_er = Objeto_er.objects.all().last()
+    novo2.latitude = latitude + 0.0002
+    novo2.longitude = longitude + 0.0002
+    novo2.save()
     
 
 @csrf_exempt
