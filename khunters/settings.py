@@ -141,10 +141,13 @@ EMAIL_HOST_USER = get_env('EMAIL_HOST_USER')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-LOGIN_URL = '/login/'
+LOGIN_URL = '/therifas/login/'
 LOGIN_REDIRECT_URL = '/'
-STATIC_URL = get_env('STATIC_URL')
-STATIC_ROOT = get_env('STATIC_ROOT')
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+else:
+    STATIC_URL = get_env('STATIC_URL')
+    STATIC_ROOT = get_env('STATIC_ROOT')
 MEDIA_URL = get_env('MEDIA_URL')
 MEDIA_ROOT = os.path.join(BASE_DIR, get_env('MEDIA_ROOT'))
 FTP_STORAGE_LOCATION = get_env('FTP_STORAGE_LOCATION')
