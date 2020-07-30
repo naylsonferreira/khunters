@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework import serializers, viewsets
 from django.http import JsonResponse,HttpResponse
+from django.core.validators import validate_email
 from .serializers import *
 import json
 from math import sqrt
@@ -77,3 +78,47 @@ def personagens_proximos(request):
     }
     print(resultado)
     return JsonResponse(resultado,safe=False)
+
+@csrf_exempt
+def singup(request):
+    email = request.POST.get('email')
+    password = request.POST.get('password')
+    
+    if not email or not password:
+        resultado = {
+            "error":"campos obrigatorios faltando",
+            "campos":{
+                "email":"",
+                "password":""
+                }
+            }
+        return JsonResponse(resultado,safe=False,status=400)
+
+    try:
+        validate_email(email)
+    except:
+        resultado={'email':'E-mail inválido'}
+        return JsonResponse(resultado,safe=False,status=400)
+
+    new_user = User(username=email,email=email,password=password)    
+    try:
+        new_user.save()
+    except:
+        resultado={'email':'E-mail já cadastrado'}
+        return JsonResponse(resultado,safe=False,status=400)
+    saved_user = User.objects.get(email=email)
+    serializer = UserSerializer(saved_user)
+    
+    token = Token(user=saved_user)
+    token.save()
+    token = Token.objects.get(user=saved_user)
+
+    result = serializer.data
+    result = {
+        'id': result["id"],
+        'email': result["email"],
+        'first_name': result["first_name"],
+        'last_name': result["last_name"],
+        'token':token.key
+        }
+    return JsonResponse(result,safe=False)
