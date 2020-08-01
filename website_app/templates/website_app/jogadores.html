@@ -1,7 +1,7 @@
 {% extends "website_app/includes/base.html" %}
 {% block content %}
 <div class="ui container">
-  <a href="{% url 'website_app:Add_Jogador'%}" class="ui button blue">Cadastrar</a>
+  <a href="{% url 'core:website_app:Add_Jogador'%}" class="ui button blue">Cadastrar</a>
   <table class="ui single line table">
     <thead>
       <tr>
@@ -22,8 +22,8 @@
         <td>{{item.login}}</td>
         <td>{{item.get_genero_display}}</td>
         <td>{{ item.get_nivel_de_autismo_display|default:"Não classificado" }}</td>
-        <td class="center aligned"><a href="{% url 'website_app:Update_Jogador' item.pk %}" class="ui button blue">Editar</a></td>
-        <td class="center aligned"><a href="{% url 'website_app:Delete_Jogador' item.pk %}" class="ui button red">Excluir</a></td>
+        <td class="center aligned"><a href="{% url 'core:website_app:Update_Jogador' item.pk %}" class="ui button blue">Editar</a></td>
+        <td class="center aligned"><a href="{% url 'core:website_app:Delete_Jogador' item.pk %}" class="ui button red">Excluir</a></td>
       </tr>
       {% endfor %}
     </tbody>

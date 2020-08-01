@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
   <!-- Standard Meta -->
   <meta charset="utf-8" />
@@ -10,16 +10,19 @@
   {% load static %}
   {% include 'website_app/includes/cabecalho.html' %}
 </head>
+
 <body>
   {% include 'website_app/includes/menus.html' %}
   <!-- Page Contents -->
   <div class="pusher">
     {% include 'website_app/includes/menu_horizontal.html' %}
     <div class="ui middle aligned stackable grid container">
+      Olá {{request.user.email}}
       <div class="row">
         <div class="column">
           <h2>
-            <a class="ui header" href="https://ppgcc.ufersa.edu.br/wp-content/uploads/sites/42/2018/08/Dissertac%CC%A7a%CC%83o-K-Hunters-Vers%C3%A3o-Final.pdf">
+            <a class="ui header"
+              href="https://ppgcc.ufersa.edu.br/wp-content/uploads/sites/42/2018/08/Dissertac%CC%A7a%CC%83o-K-Hunters-Vers%C3%A3o-Final.pdf">
               Knowledgemon Hunters: Um jogo sério com geolocalização
               para apoiar a aprendizagem de crianças com autismo e
               dificuldades de aprendizado
@@ -38,7 +41,12 @@
           </p>
           <h3 class="ui header">O JOGO</h3>
           <p>
-            O jogo K-Hunters, é voltado para plataformas móveis que possuem hardware de GPS e que detém o sistema operacional Android 3. A partir destes dispositivos, o jogo pode ser executado e permitir que as crianças busquem os monstros virtuais. O jogo provê um ambiente tridimensional de busca e visualização de monstros virtuais detentores de conhecimento. A aplicação pode ser executada em plataformas móveis que possuem hardware de GPS (Global Position System). A Figura 2 ilustra como a matriz de planos, o posicionamento do avatar e a interface principal do jogo são organizados
+            O jogo K-Hunters, é voltado para plataformas móveis que possuem hardware de GPS e que detém o sistema
+            operacional Android 3. A partir destes dispositivos, o jogo pode ser executado e permitir que as crianças
+            busquem os monstros virtuais. O jogo provê um ambiente tridimensional de busca e visualização de monstros
+            virtuais detentores de conhecimento. A aplicação pode ser executada em plataformas móveis que possuem
+            hardware de GPS (Global Position System). A Figura 2 ilustra como a matriz de planos, o posicionamento do
+            avatar e a interface principal do jogo são organizados
           </p>
         </div>
       </div>

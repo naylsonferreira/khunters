@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
 import os
-from decouple import config as get_env
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env('SECRET_KEY')
+SECRET_KEY = 'overloadlab'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = get_env('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -37,9 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
-    'rest_framework',
-    'rest_framework.authtoken',
     'website_app.apps.WebsiteAppConfig',
     'api_app.apps.ApiAppConfig',
     'agentes_app.apps.AgentesAppConfig',
@@ -83,10 +79,10 @@ WSGI_APPLICATION = 'khunters.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_env('K_NAME'),
-        'USER': get_env('K_USER'),
-        'PASSWORD': get_env('K_PASSWORD'),
-        'HOST': get_env('K_HOST'),
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '5432',
     }
 }
@@ -130,40 +126,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LANGUAGE_CODE = 'pt-br'
-TIME_ZONE = 'America/Fortaleza'
-ALLOWED_HOSTS = ['*']
-ADMINS = [('Naylson Ferreira', 'naylsonfsa@gmail.com')]
-EMAIL_HOST_USER = 'naylsonfsa@gmail.com'
-EMAIL_HOST = get_env('EMAIL_HOST')
-EMAIL_HOST_PASSWORD = get_env('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_USER = get_env('EMAIL_HOST_USER')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-LOGIN_URL = '/therifas/login/'
-LOGIN_REDIRECT_URL = '/'
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-else:
-    STATIC_URL = get_env('STATIC_URL')
-    STATIC_ROOT = get_env('STATIC_ROOT')
-MEDIA_URL = get_env('MEDIA_URL')
-MEDIA_ROOT = os.path.join(BASE_DIR, get_env('MEDIA_ROOT'))
-FTP_STORAGE_LOCATION = get_env('FTP_STORAGE_LOCATION')
-CORS_ORIGIN_ALLOW_ALL = True
-
-from corsheaders.defaults import default_headers
-CORS_ALLOW_HEADERS = list(default_headers) + [
-    'access-control-allow-origin',
-    'access-control-allow-headers',
-]
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated'
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
+from core.settings import *

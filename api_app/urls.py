@@ -1,7 +1,6 @@
 from django.urls import path
 from .views  import  *
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,7 +23,6 @@ for user in User.objects.all():
 
 app_name="api_app"
 urlpatterns +=[
-    path('login/', auth_token.obtain_auth_token,name='api_login'),
     path('singup/',singup,name='singup'),
     path('personagens/',personagens_proximos,name='personagens_proximos')
 ]
