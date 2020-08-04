@@ -23,6 +23,5 @@ for user in User.objects.all():
 
 app_name="api_app"
 urlpatterns +=[
-    path('singup/',singup,name='singup'),
     path('personagens/',personagens_proximos,name='personagens_proximos')
 ]

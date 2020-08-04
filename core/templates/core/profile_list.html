@@ -1,13 +1,9 @@
 {% extends "html_base.html" %}
-{% load static %} 
+{% load static %}
 {% block css_page %}
 <link rel="stylesheet" href="{% static 'core/css/lista.css' %}?{% now 'u' %}">
-{% endblock %} 
+{% endblock %}
 {% block content %}
-<h2 class="ui center aligned icon header">
-  Usuários
-</h2>
-{% include "menu.html" %}
 <div class="ui container segment bloco_lista">
     <table class="ui compact striped table">
         <thead>
@@ -19,65 +15,71 @@
                 <th>Instagram</th>
                 <th>Data de cadastro</th>
                 <th>Último acesso</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
-            {% for user in users %}
+            {% for profile in object_list %}
             <tr>
                 <td>
-                    {% if user.profile.foto %}
-                    <img class="ui image tiny" src="{{user.profile.foto.url}}">
+                    {% if profile.foto %}
+                    <img class="ui image tiny" src="{{profile.foto.url}}">
                     {% else %}
                     Sem foto
                     {% endif %}
                 </td>
                 <td>
-                    {% if user.get_full_name %}
-                    {{user.get_full_name}}
+                    {% if profile.nome %}
+                    {{profile.nome}}
                     {% else %}
                     Sem nome cadastrado
                     {% endif %}
                 </td>
-                <td>{{user.email}}</td>
+                <td>{{profile.email}}</td>
                 <td>
-                    {% if user.profile.whatsapp %}
-                    {{user.profile.whatsapp}}
+                    {% if profile.whatsapp %}
+                    {{profile.whatsapp}}
                     {% else %}
-                    Sem whatsapp 
+                    Sem whatsapp
                     {% endif %}
                 </td>
                 <td>
-                    {% if user.profile.instagram %}
-                    {{user.profile.instagram}}
+                    {% if profile.instagram %}
+                    {{profile.instagram}}
                     {% else %}
-                    Sem instagram 
+                    Sem instagram
                     {% endif %}
                 </td>
-                <td>{{user.date_joined}}</td>
-                <td>{{user.last_login}}</td>
+                <td>{{profile.user.date_joined}}</td>
+                <td>{{profile.user.last_login}}</td>
+                <td>
+                    <a href="{% url 'core:Update_profile' profile.pk %}">
+                        Editar
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <div class="ui container bloco_pagination">
+    <div class="ui container bloco_pagination" style="margin-top:3em;padding-bottom:3em;">
         <h3 class="ui right floated header">
-            {% if users.has_next %}
-            <a class="ui basic black button" href="?page={{ users.next_page_number }}">Próximo</a>
-            <a class="ui basic black button" href="?page={{ users.paginator.num_pages }}">Último</a>
+            {% if page_obj.has_next %}
+            <a class="ui basic black button" href="?page={{ page_obj.next_page_number }}">Próximo</a>
+            <a class="ui basic black button" href="?page={{ page_obj.paginator.num_pages }}">Último</a>
             {% endif %}
         </h3>
         <h3 class="ui left floated header">
-            {% if users.has_previous %}
+            {% if page_obj.has_previous %}
             <a class="ui basic black button" href="?page=1">Primeiro</a>
-            <a class="ui basic black button" href="?page={{ users.previous_page_number }}">Anterior</a>
+            <a class="ui basic black button" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
             {% endif %}
         </h3>
     </div>
 
     <div class="ui container center aligned bloco_pagination">
         <div class="current ui header">
-            Página {{ users.number }} de {{ users.paginator.num_pages }}.
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
         </div>
     </div>
 
