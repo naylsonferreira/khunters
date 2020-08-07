@@ -29,12 +29,12 @@ class Jogador(models.Model):
         return str(self.nome)+" "+str(self.idade)+" Anos"
 
     def get_absolute_url(self):
-        return reverse('website_app:Jogadores')
+        return reverse('core:website_app:Jogadores')
 
 class Personagem(models.Model):
     descricao = models.CharField("Descrição",max_length=100)
     prefab = models.CharField(max_length=50)
-    tamanho = models.CharField("Tamanho(Usar virgula): ",max_length=10,default="1.0")
+    tamanho = models.CharField("Tamanho: ",max_length=10,default="1.0")
     def __str__(self):
         return str(self.descricao)
     class Meta:
@@ -53,7 +53,6 @@ class Objeto_er(models.Model):
     texto = models.CharField('Texto',max_length=255,null=True,blank=True)
     idioma = models.CharField('Idioma',max_length=10,choices=IDIOMA,null=True,blank=True)
     #Imagem
-    #arquivo = models.FileField(upload_to='arquivos/objeto_er/',storage=SERVIDOR_FTP_WEB)
     arquivo_1 = models.FileField('Arquivo Principal',upload_to='arquivos/objeto_er/',null=True,blank=True,storage=SERVIDOR_FTP_WEB)
     arquivo_2 = models.FileField('Arquivo Secundário:',upload_to='arquivos/objeto_er/',null=True,blank=True,storage=SERVIDOR_FTP_WEB)
     #Audio, Video
@@ -62,7 +61,7 @@ class Objeto_er(models.Model):
         return str(self.personagem)+" - "+str(self.titulo)
 
     def get_absolute_url(self):
-        return reverse('website_app:Objeto_ers')
+        return reverse('core:website_app:Objeto_ers')
 
 class Objeto_er_map(models.Model):
     latitude = models.CharField('Latitude',max_length=255,null=True,blank=True)
@@ -72,7 +71,7 @@ class Objeto_er_map(models.Model):
         return str(self.objeto_er)
 
     def get_absolute_url(self):
-        return reverse('website_app:Objeto_er_maps')
+        return reverse('core:website_app:Objeto_er_maps')
 
 class Captura(models.Model):
     latitude = models.CharField(max_length=255,null=True,blank=True)
@@ -83,4 +82,4 @@ class Captura(models.Model):
         return str(self.objeto_er)
 
     def get_absolute_url(self):
-        return reverse('website_app:index')
+        return reverse('core:website_app:index')

@@ -9,10 +9,9 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register('profile/json', ProfileJson, 'profile_json')
-urlpatterns = router.urls
 
 app_name="core"
-urlpatterns += [
+urlpatterns = [
     path('login/json/', auth_token.obtain_auth_token,name='login_json'),
     path('login/',auth_views.LoginView.as_view(template_name="core/login.html",redirect_authenticated_user=True),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name="core/logout.html"),name='logout'),
@@ -26,6 +25,7 @@ urlpatterns += [
     path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(template_name="core/password_reset_done.html"), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="core/password_reset_confirm.html"), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name="core/password_reset_complete.html"), name='password_reset_complete'),
+    path('api/', include(router.urls)),
     path('',include(settings.DEFAULT_APP+'.urls',namespace=settings.DEFAULT_APP)),
 ]
 if settings.DEBUG:

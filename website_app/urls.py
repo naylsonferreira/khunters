@@ -3,14 +3,11 @@ from .views  import  *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 
-#Debug only
 from django.conf import settings
 
 app_name="website_app"
 urlpatterns = [
-# path('login/',auth_views.LoginView.as_view(template_name="website_app/login.html",redirect_authenticated_user=True),name='Login'),
-# path('logout/',auth_views.LogoutView.as_view(template_name="website_app/logout.html"),name='Logout'),
-path('',login_required(index),name='index'),
+path('',index,name='index'),
 path('jogadores/',login_required(Jogadores),name='Jogadores'),
 path('jogadores/add/',login_required(JogadorCreate.as_view()),name='Add_Jogador'),
 path('jogadores/up/<int:pk>/', login_required(JogadorUpdateView.as_view()), name='Update_Jogador'),

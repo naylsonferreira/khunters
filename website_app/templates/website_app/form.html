@@ -39,7 +39,7 @@
     </div>
     {% endfor %}
 
-    <input type="text" name="autor" value="{{request.user.pk}}" style="display:none" />
+    <input type="hidden" name="autor" value="{{request.user.pk}}" style="display:none" />
     <p></p>
     <button class="ui button fluid blue" type="submit">Salvar</button>
   </form>

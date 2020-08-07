@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from .models import *
-
+from django.urls import reverse_lazy
 
 def index(request):
     contexto = {}
@@ -42,7 +42,7 @@ class JogadorUpdateView(UpdateView):
 
 class JogadorDeleteView(DeleteView):
     model = Jogador
-    success_url = '/'
+    success_url = reverse_lazy('core:website_app:Jogadores')
     template_name = 'website_app/confirm_delete.html'
 
     def get_context_data(self, **kwargs):
@@ -83,7 +83,7 @@ class Objeto_erUpdateView(UpdateView):
 
 class Objeto_erDeleteView(DeleteView):
     model = Objeto_er
-    success_url = '/'
+    success_url = reverse_lazy('core:website_app:Objeto_ers')
     template_name = 'website_app/confirm_delete.html'
 
     def get_context_data(self, **kwargs):
@@ -138,7 +138,7 @@ class Objeto_er_mapUpdateView(UpdateView):
 
 class Objeto_er_mapDeleteView(DeleteView):
     model = Objeto_er_map
-    success_url = '/'
+    success_url = reverse_lazy('core:website_app:Objeto_er_maps')
     template_name = 'website_app/confirm_delete.html'
 
     def get_context_data(self, **kwargs):
