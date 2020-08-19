@@ -53,28 +53,67 @@ def criar_automaticamente(latitude,longitude):
     novo2.save()
     
 
-@csrf_exempt
+@api_view(['GET'])
 def personagens_proximos(request):
     try:
         latitude = float(request.headers["Latitude"].replace(",","."))
         longitude = float(request.headers["Longitude"].replace(",","."))
+        
+        try:
+            animacao = request.headers["Animacao"]
+        except:
+            animacao = "default"
+        
+        try:
+            avatar = request.headers["Avatar"]
+        except:
+            avatar = "default"
+        
+        print(latitude,longitude)
         localizacao_player = (latitude,longitude)
     except:
         erro = "Enviar a localizacao latitude e longitude via cabeçalho"
         return JsonResponse(erro,status=400,safe=False)
     personagens = []
-    for i in Objeto_er_map.objects.all():
+    jogadores = []
+
+    Jogador.objects.all().update(online=False)
+
+    try:
+        jogador = Token.objects.get(key=request.auth).user.jogador
+    except:
+        jogador = Jogador(user=Token.objects.get(key=request.auth).user)
+    
+    jogador.latitude = latitude
+    jogador.longitude = longitude
+    jogador.avatar = avatar
+    jogador.animacao = animacao
+    jogador.online = True
+    jogador.save()
+
+    for obj_er_map in Objeto_er_map.objects.all():
         try:
-            localizacao_personagem = (i.latitude,i.longitude)
+            localizacao_personagem = (obj_er_map.latitude,obj_er_map.longitude)
             distancia = 1000 * distance(localizacao_player, localizacao_personagem).km
-            if distancia <= 100: # Mostrar personagens com 50 metros ou menos do jogador
-                j = Objeto_er_mapSerializer(i)
+            if distancia <= 500: # Mostrar personagens com 500 metros ou menos do jogador
+                j = Objeto_er_mapSerializer(obj_er_map)
                 personagens.append(j.data)
         except:
             pass
+    for jogador in Jogador.objects.all().exclude(pk=jogador.pk):
+        try:
+            localizacao_jogador = (jogador.latitude,jogador.longitude)
+            distancia = 1000 * distance(localizacao_player, localizacao_jogador).km
+            if distancia <= 500: # Mostrar personagens com 500 metros ou menos do jogador
+                j = JogadorSerializer(jogador)
+                jogadores.append(j.data)
+        except:
+            pass
+
     if len(personagens) == 0 : criar_automaticamente(latitude,longitude)
     resultado = {
-        "personagens":personagens
+        "personagens":personagens,
+        "jogadores":jogadores
     }
     print(resultado)
     return JsonResponse(resultado,safe=False)

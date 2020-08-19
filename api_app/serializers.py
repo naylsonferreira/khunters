@@ -3,11 +3,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework import serializers
 from website_app.models import *
 
-class JogadorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Jogador
-        fields = "__all__"
-
 class Objeto_erSerializer(serializers.ModelSerializer):
     class Meta:
         model = Objeto_er
@@ -33,3 +28,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id","email","first_name","last_name"]
+
+class JogadorSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False, read_only=True)
+    class Meta:
+        model = Jogador
+        fields = "__all__"
