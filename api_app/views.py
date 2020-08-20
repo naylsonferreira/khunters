@@ -6,6 +6,7 @@ from django.http import JsonResponse,HttpResponse
 from django.core.validators import validate_email
 from .serializers import *
 import json
+import time
 from math import sqrt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -77,8 +78,6 @@ def personagens_proximos(request):
     personagens = []
     jogadores = []
 
-    Jogador.objects.all().update(online=False)
-
     try:
         jogador = Token.objects.get(key=request.auth).user.jogador
     except:
@@ -95,17 +94,17 @@ def personagens_proximos(request):
         try:
             localizacao_personagem = (obj_er_map.latitude,obj_er_map.longitude)
             distancia = 1000 * distance(localizacao_player, localizacao_personagem).km
-            if distancia <= 500: # Mostrar personagens com 500 metros ou menos do jogador
+            if distancia <= 100: # Mostrar personagens com 500 metros ou menos do jogador
                 j = Objeto_er_mapSerializer(obj_er_map)
                 personagens.append(j.data)
         except:
             pass
-    for jogador in Jogador.objects.all().exclude(pk=jogador.pk):
+    for jogador_map in Jogador.objects.filter(online=True).exclude(pk=jogador.pk):
         try:
-            localizacao_jogador = (jogador.latitude,jogador.longitude)
+            localizacao_jogador = (jogador_map.latitude,jogador_map.longitude)
             distancia = 1000 * distance(localizacao_player, localizacao_jogador).km
-            if distancia <= 500: # Mostrar personagens com 500 metros ou menos do jogador
-                j = JogadorSerializer(jogador)
+            if distancia <= 100: # Mostrar personagens com 500 metros ou menos do jogador
+                j = JogadorSerializer(jogador_map)
                 jogadores.append(j.data)
         except:
             pass
@@ -115,6 +114,9 @@ def personagens_proximos(request):
         "personagens":personagens,
         "jogadores":jogadores
     }
+
+    Jogador.objects.all().exclude(pk=jogador.pk).update(online=False)
+    
     return JsonResponse(resultado,safe=False)
 
 @api_view(['GET'])
@@ -131,3 +133,8 @@ def me(request):
         jogador.save()
 
     return JsonResponse(JogadorSerializer(jogador,many=False).data,safe=False)
+
+def job_check_online_users(request):
+    time.sleep(10)
+    Jogador.objects.all().update(online=False)
+    return HttpResponse("Ok")
