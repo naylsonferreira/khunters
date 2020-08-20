@@ -115,5 +115,19 @@ def personagens_proximos(request):
         "personagens":personagens,
         "jogadores":jogadores
     }
-    print(resultado)
     return JsonResponse(resultado,safe=False)
+
+@api_view(['GET'])
+def me(request):
+    if request.auth:
+        user = Token.objects.get(key=request.auth).user
+    else:
+        user = request.user
+    
+    try:
+        jogador = user.jogador
+    except:
+        jogador = Jogador(user=user)
+        jogador.save()
+
+    return JsonResponse(JogadorSerializer(jogador,many=False).data,safe=False)
