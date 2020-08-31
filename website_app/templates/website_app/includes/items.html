@@ -4,7 +4,7 @@
 <a class="item {{item_active_objeto_er}}" href="{% url 'core:website_app:Objeto_ers' %}">Objetos de Aprendizagem</a>
 <a class="item {{item_active_objeto_er_map}}" href="{% url 'core:website_app:Objeto_er_maps' %}">Objetos no Mapa</a>
 <a class="item " href="{% url 'core:password_change' %}">Mudar senha</a>
-<a class="item " href="{% url 'core:Update_profile' request.user.profile.pk %}">Meu perfil</a>
+<a class="item " href="{% url 'core:Update_profile' 1 %}">Meu perfil</a>
 <a class="item">Estatísticas</a>
 <a  class="right menu item" href="{% url 'core:logout' %}">Sair</a>
 {% else %}

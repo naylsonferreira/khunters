@@ -7,6 +7,7 @@ from django.core.validators import validate_email
 from .serializers import *
 import json
 import time
+from random import randrange
 from math import sqrt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -42,16 +43,11 @@ class CapturaList(viewsets.ModelViewSet):
     serializer_class = CapturaSerializer
 
 def criar_automaticamente(latitude,longitude):
-    novo1 = Objeto_er_map()
-    novo1.objeto_er = Objeto_er.objects.all().first()
-    novo1.latitude = latitude - 0.0002
-    novo1.longitude = longitude - 0.0002
-    novo1.save()
-    novo2 = Objeto_er_map()
-    novo2.objeto_er = Objeto_er.objects.all().last()
-    novo2.latitude = latitude + 0.0002
-    novo2.longitude = longitude + 0.0002
-    novo2.save()
+    lista = Objeto_er.objects.all()[:2]
+    for obj_er in lista:
+        latitude = latitude  - (0.0002 * randrange(2) )
+        longitude = longitude  - (0.0001 * randrange(3) )
+        Objeto_er_map.objects.get_or_create(objeto_er_id=obj_er.id,latitude = latitude,longitude = longitude)
     
 
 @api_view(['GET'])
@@ -103,7 +99,7 @@ def personagens_proximos(request):
         try:
             localizacao_jogador = (jogador_map.latitude,jogador_map.longitude)
             distancia = 1000 * distance(localizacao_player, localizacao_jogador).km
-            if distancia <= 100: # Mostrar personagens com 500 metros ou menos do jogador
+            if distancia <= 500: # Mostrar personagens com 500 metros ou menos do jogador
                 j = JogadorSerializer(jogador_map)
                 jogadores.append(j.data)
         except:
@@ -115,7 +111,7 @@ def personagens_proximos(request):
         "jogadores":jogadores
     }
 
-    Jogador.objects.all().exclude(pk=jogador.pk).update(online=False)
+    # Jogador.objects.all().exclude(pk=jogador.pk).update(online=False)
     
     return JsonResponse(resultado,safe=False)
 

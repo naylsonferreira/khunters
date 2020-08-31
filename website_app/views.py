@@ -11,10 +11,17 @@ def index(request):
 
 
 def Jogadores(request):
+    jogadores = Jogador.objects.all()
+    lista = []
+    for i in jogadores:
+        try:
+            lista.append([float(i.longitude.replace(',', '.')),float(i.latitude.replace(',', '.'))])
+        except:
+            pass
     contexto = {
-        "lista": Jogador.objects.all(),
+        "jogadores": Jogador.objects.all(),
+        "lista_js": lista
     }
-    contexto["item_active_jogador"] = "active"
     return render(request, 'website_app/jogadores.html', contexto)
 
 

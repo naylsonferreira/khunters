@@ -23,10 +23,8 @@ class Jogador(models.Model):
         return reverse('core:website_app:Jogadores')
 @receiver(post_save, sender=User)
 def save_user_jogador(sender, instance, **kwargs):
-    try:
-        instance.jogador.save()
-    except:
-        Jogador.objects.create(user=instance)
+    Jogador.objects.get_or_create(user=instance)
+        
 
 class Personagem(models.Model):
     descricao = models.CharField("Descrição",max_length=100)
