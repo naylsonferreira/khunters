@@ -47,7 +47,7 @@ NIVEL_DE_AUTISMO = (
 ('2','Criança Nível 2 - Exigindo Apoio Substancial'),
 ('3','Criança Nível 3 - Exigindo Apoio Muito Substancial'),
 ('4','Criança Nível Desconhecido'),
-('5','Criança Sem Autimo')
+('5','Criança Sem Autismo')
 )
 
 AREA_DE_CONHECIMENTO = (

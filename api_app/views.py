@@ -6,6 +6,8 @@ from django.http import JsonResponse,HttpResponse
 from django.core.validators import validate_email
 from .serializers import *
 import json
+import time
+from random import randrange
 from math import sqrt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -41,40 +43,94 @@ class CapturaList(viewsets.ModelViewSet):
     serializer_class = CapturaSerializer
 
 def criar_automaticamente(latitude,longitude):
-    novo1 = Objeto_er_map()
-    novo1.objeto_er = Objeto_er.objects.all().first()
-    novo1.latitude = latitude - 0.0002
-    novo1.longitude = longitude - 0.0002
-    novo1.save()
-    novo2 = Objeto_er_map()
-    novo2.objeto_er = Objeto_er.objects.all().last()
-    novo2.latitude = latitude + 0.0002
-    novo2.longitude = longitude + 0.0002
-    novo2.save()
+    lista = Objeto_er.objects.all()[:2]
+    for obj_er in lista:
+        latitude = latitude  - (0.0002 * randrange(2) )
+        longitude = longitude  - (0.0001 * randrange(3) )
+        Objeto_er_map.objects.get_or_create(objeto_er_id=obj_er.id,latitude = latitude,longitude = longitude)
     
 
-@csrf_exempt
+@api_view(['GET'])
 def personagens_proximos(request):
     try:
         latitude = float(request.headers["Latitude"].replace(",","."))
         longitude = float(request.headers["Longitude"].replace(",","."))
+        
+        try:
+            animacao = request.headers["Animacao"]
+        except:
+            animacao = "default"
+        
+        try:
+            avatar = request.headers["Avatar"]
+        except:
+            avatar = "default"
+        
+        print(latitude,longitude)
         localizacao_player = (latitude,longitude)
     except:
         erro = "Enviar a localizacao latitude e longitude via cabeçalho"
         return JsonResponse(erro,status=400,safe=False)
     personagens = []
-    for i in Objeto_er_map.objects.all():
+    jogadores = []
+
+    try:
+        jogador = Token.objects.get(key=request.auth).user.jogador
+    except:
+        jogador = Jogador(user=Token.objects.get(key=request.auth).user)
+    
+    jogador.latitude = latitude
+    jogador.longitude = longitude
+    jogador.avatar = avatar
+    jogador.animacao = animacao
+    jogador.online = True
+    jogador.save()
+
+    for obj_er_map in Objeto_er_map.objects.all():
         try:
-            localizacao_personagem = (i.latitude,i.longitude)
+            localizacao_personagem = (obj_er_map.latitude,obj_er_map.longitude)
             distancia = 1000 * distance(localizacao_player, localizacao_personagem).km
-            if distancia <= 100: # Mostrar personagens com 50 metros ou menos do jogador
-                j = Objeto_er_mapSerializer(i)
+            if distancia <= 100: # Mostrar personagens com 500 metros ou menos do jogador
+                j = Objeto_er_mapSerializer(obj_er_map)
                 personagens.append(j.data)
         except:
             pass
+    for jogador_map in Jogador.objects.filter(online=True).exclude(pk=jogador.pk):
+        try:
+            localizacao_jogador = (jogador_map.latitude,jogador_map.longitude)
+            distancia = 1000 * distance(localizacao_player, localizacao_jogador).km
+            if distancia <= 500: # Mostrar personagens com 500 metros ou menos do jogador
+                j = JogadorSerializer(jogador_map)
+                jogadores.append(j.data)
+        except:
+            pass
+
     if len(personagens) == 0 : criar_automaticamente(latitude,longitude)
     resultado = {
-        "personagens":personagens
+        "personagens":personagens,
+        "jogadores":jogadores
     }
-    print(resultado)
+
+    # Jogador.objects.all().exclude(pk=jogador.pk).update(online=False)
+    
     return JsonResponse(resultado,safe=False)
+
+@api_view(['GET'])
+def me(request):
+    if request.auth:
+        user = Token.objects.get(key=request.auth).user
+    else:
+        user = request.user
+    
+    try:
+        jogador = user.jogador
+    except:
+        jogador = Jogador(user=user)
+        jogador.save()
+
+    return JsonResponse(JogadorSerializer(jogador,many=False).data,safe=False)
+
+def job_check_online_users(request):
+    time.sleep(10)
+    Jogador.objects.all().update(online=False)
+    return HttpResponse("Ok")

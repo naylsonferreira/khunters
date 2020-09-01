@@ -30,20 +30,12 @@ class Profile(models.Model):
         return ('/profile')
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance,email=instance.username)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+def save_or_create_user_profile(sender, instance, **kwargs):
+    Profile.objects.get_or_create(user=instance,email=instance.username)
 
 @receiver(post_save, sender=Profile)
-def save_user_profile(sender, instance, **kwargs):
-    user = instance.user.pk
-    user = User.objects.get(pk=user)
-    user.username = instance.email
-    user.email = instance.email
-    user.save()
-
-    
+def save_user_profile(sender, instance, created, **kwargs):
+    if not created:
+        instance.user.username = instance.email
+        instance.user.email = instance.email
+        instance.user.save()

@@ -9,27 +9,22 @@ SERVIDOR_FTP_WEB = FTPStorage()
 from .models_includes import *
 
 class Jogador(models.Model):
-    nome = models.CharField('Nome',max_length=255,null=True,blank=True)
-    idade = models.IntegerField('Idade',default=10,null=True,blank=True)
-    login = models.CharField('Login',max_length=255,null=True,blank=True)
-    password = models.CharField('Senha',max_length=255,null=True,blank=True)
-    genero = models.CharField('Genero',choices=GENERO,max_length=10,default='M',null=True,blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.CharField(max_length=255,null=True,blank=True)
+    online = models.BooleanField(default=False)
+    latitude = models.CharField('Latitude',max_length=255,null=True,blank=True)
+    longitude = models.CharField('Longitude',max_length=255,null=True,blank=True)
+    animacao = models.CharField(max_length=255,null=True,blank=True)
     nivel_de_autismo = models.CharField('Nível de Autismo',choices=NIVEL_DE_AUTISMO,max_length=50,null=True,blank=True)
-    definicao_a_1 = models.CharField('Definiçao A-1',choices=DEFINITION_A_1,max_length=20,null=True,blank=True)
-    definicao_a_2 = models.CharField('Definiçao A-2',choices=DEFINITION_A_2,max_length=20,null=True,blank=True)
-    definicao_a_3 = models.CharField('Definiçao A-3',choices=DEFINITION_A_3,max_length=20,null=True,blank=True)
-    definicao_b_1 = models.CharField('Definiçao B-1',choices=DEFINITION_B_1,max_length=20,null=True,blank=True)
-    definicao_b_2 = models.CharField('Definiçao B-2',choices=DEFINITION_B_2,max_length=20,null=True,blank=True)
-    definicao_b_3 = models.CharField('Definiçao B-3',choices=DEFINITION_B_3,max_length=20,null=True,blank=True)
-    definicao_b_4 = models.CharField('Definiçao B-4',choices=DEFINITION_B_4,max_length=20,null=True,blank=True)
-    definicao_c = models.CharField('Definiçao C',choices=DEFINITION_C,max_length=20,null=True,blank=True)
-    definicao_d = models.CharField('Definiçao D',choices=DEFINITION_D,max_length=20,null=True,blank=True)
-    definicao_e = models.CharField('Definiçao E',choices=DEFINITION_E,max_length=20,null=True,blank=True)
     def __str__(self):
-        return str(self.nome)+" "+str(self.idade)+" Anos"
+        return str(self.user)
 
     def get_absolute_url(self):
         return reverse('core:website_app:Jogadores')
+@receiver(post_save, sender=User)
+def save_user_jogador(sender, instance, **kwargs):
+    Jogador.objects.get_or_create(user=instance)
+        
 
 class Personagem(models.Model):
     descricao = models.CharField("Descrição",max_length=100)
