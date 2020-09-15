@@ -1,0 +1,319 @@
+[
+    {
+      "model": "website_app.personagem",
+      "pk": 1,
+      "fields": {
+        "descricao": "Vaca",
+        "prefab": "Vaca",
+        "tamanho": "1.2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 2,
+      "fields": {
+        "descricao": "Burro",
+        "prefab": "Burro",
+        "tamanho": "1,5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 3,
+      "fields": {
+        "descricao": "Águia",
+        "prefab": "Aguia",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 4,
+      "fields": {
+        "descricao": "Cabra",
+        "prefab": "Cabra",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 5,
+      "fields": {
+        "descricao": "Cachorro",
+        "prefab": "Cachorro",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 6,
+      "fields": {
+        "descricao": "Cavalo",
+        "prefab": "Cavalo",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 7,
+      "fields": {
+        "descricao": "Cobra",
+        "prefab": "Cobra",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 8,
+      "fields": {
+        "descricao": "Coelho",
+        "prefab": "Coelho",
+        "tamanho": "2.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 9,
+      "fields": {
+        "descricao": "Coruja",
+        "prefab": "Coruja",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 10,
+      "fields": {
+        "descricao": "Elefante",
+        "prefab": "Elefante",
+        "tamanho": "1"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 11,
+      "fields": {
+        "descricao": "Foca",
+        "prefab": "Foca",
+        "tamanho": "3"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 12,
+      "fields": {
+        "descricao": "Galinha",
+        "prefab": "Galinha",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 13,
+      "fields": {
+        "descricao": "Galo",
+        "prefab": "Galo",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 14,
+      "fields": {
+        "descricao": "Ganso",
+        "prefab": "Ganso",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 15,
+      "fields": {
+        "descricao": "Gato",
+        "prefab": "Gato",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 16,
+      "fields": {
+        "descricao": "Gorila",
+        "prefab": "Gorila",
+        "tamanho": "1,5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 17,
+      "fields": {
+        "descricao": "Jacaré",
+        "prefab": "Jacare",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 18,
+      "fields": {
+        "descricao": "Leão",
+        "prefab": "Leao",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 19,
+      "fields": {
+        "descricao": "Leopardo",
+        "prefab": "Leopardo",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 20,
+      "fields": {
+        "descricao": "Lobo",
+        "prefab": "Lobo",
+        "tamanho": "3"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 21,
+      "fields": {
+        "descricao": "Macaco",
+        "prefab": "Macaco",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 22,
+      "fields": {
+        "descricao": "Ovelha",
+        "prefab": "Ovelha",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 23,
+      "fields": {
+        "descricao": "Pardal",
+        "prefab": "Pardal",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 24,
+      "fields": {
+        "descricao": "Pato",
+        "prefab": "Pato",
+        "tamanho": "3"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 25,
+      "fields": {
+        "descricao": "Pombo",
+        "prefab": "Pombo",
+        "tamanho": "3"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 26,
+      "fields": {
+        "descricao": "Porco",
+        "prefab": "Porco",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 27,
+      "fields": {
+        "descricao": "Rato",
+        "prefab": "Rato",
+        "tamanho": "2"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 28,
+      "fields": {
+        "descricao": "Sapo",
+        "prefab": "Sapo",
+        "tamanho": "2.5"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 29,
+      "fields": {
+        "descricao": "Tigre",
+        "prefab": "Tigre",
+        "tamanho": "25"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 30,
+      "fields": {
+        "descricao": "Touro",
+        "prefab": "Touro",
+        "tamanho": "1"
+      }
+    },
+    {
+      "model": "website_app.personagem",
+      "pk": 31,
+      "fields": {
+        "descricao": "Urso",
+        "prefab": "Urso",
+        "tamanho": "1.5"
+      }
+    },
+    {
+      "model": "website_app.objeto_er",
+      "pk": 1,
+      "fields": {
+        "personagem": 3,
+        "titulo": "Titulo",
+        "sub_titulo": "Sub titulo",
+        "descricao": "Descrição",
+        "area_de_conhecimento": "Art",
+        "dificuldade": "1",
+        "tipo_de_arquivo": "1",
+        "autor": 1,
+        "texto": "Texto",
+        "idioma": "1",
+        "arquivo_1": "",
+        "arquivo_2": "",
+        "duracao": 1
+      }
+    },
+    {
+      "model": "website_app.objeto_er",
+      "pk": 2,
+      "fields": {
+        "personagem": 20,
+        "titulo": "Titulo",
+        "sub_titulo": "Sub titulo",
+        "descricao": "Descrição",
+        "area_de_conhecimento": "Foreign_Languages",
+        "dificuldade": "1",
+        "tipo_de_arquivo": "1",
+        "autor": 1,
+        "texto": "Texto",
+        "idioma": "3",
+        "arquivo_1": "",
+        "arquivo_2": "",
+        "duracao": 0
+      }
+    }    
+  ]

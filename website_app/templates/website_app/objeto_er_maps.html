@@ -1,0 +1,62 @@
+{% extends "website_app/includes/base.html" %}
+{% block content %}
+<div class="ui container">
+  <!-- Inicio mapa -->
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+  <div id='map' style="width: 100% !important;height: 30em !important;"></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibmF5bHNvbmZzYSIsImEiOiJjanp2dGd0eXowMW4xM2hsZ2pkaHowdWtkIn0.wBsVgEtB34qVagCHzalIQg';
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-37.323209, -5.206060], // starting position
+      zoom: 13 // starting zoom
+    });
+    // var ponto = new mapboxgl.Marker({color:"#E8310A"}).setLngLat([-37.323209, -5.206060]).addTo(map);
+    var lista_pontos = {{lista_js}}; // Interpolador Django
+    
+    $(document).ready(function(){
+      lista_pontos.forEach(element => {
+      new mapboxgl.Marker().setLngLat(element).addTo(map);
+    });
+      $(".objeto_er_map").on("click",function(e){
+        // console.log(e.target.dataset.lng); .Marker({color:"#E8310A"})
+        //ponto.setLngLat([e.target.dataset.lng,e.target.dataset.lat]);
+        map.setCenter([e.target.dataset.lng,e.target.dataset.lat]);
+        map.setZoom(18);
+      })
+    });
+  </script>
+  <!-- Fim mapa -->
+  <a href="{% url 'core:website_app:Add_Objeto_er_map'%}" class="ui button blue">Cadastrar</a>
+  <table class="ui single line table">
+    <thead>
+      <tr>
+        <th>Objeto de aprendizagem</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th class="center aligned">Editar</th>
+        <th class="center aligned">Excluir</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in lista %}
+      <tr>
+        <td>
+          <a href="#" class="objeto_er_map" data-lng="{{item.longitude}}" data-lat="{{item.latitude}}">
+            {{item.objeto_er.get_tipo_de_objeto_display}} {{item.objeto_er}}
+          </a>
+        </td>
+        <td>{{item.latitude}}</td>
+        <td>{{item.longitude}}</td>
+        <td class="center aligned"><a href="{% url 'core:website_app:Update_Objeto_er_map' item.pk %}"
+            class="ui button blue">Editar</a></td>
+        <td class="center aligned"><a href="{% url 'core:website_app:Delete_Objeto_er_map' item.pk %}"
+            class="ui button red">Excluir</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

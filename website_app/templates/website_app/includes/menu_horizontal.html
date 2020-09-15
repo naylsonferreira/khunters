@@ -1,0 +1,20 @@
+{% load static %}
+<div class="ui vertical masthead center aligned container">
+  <a href="/"><img class="ui image fluid logo" src="{% static 'logo.png' %}" alt="Logo"></a>
+</div>
+<div class="barra">
+  <div class="ui container item_menu_horizontal ">
+    <div class="ui menu">
+      {% include 'website_app/includes/items.html' %}
+    </div>
+  </div>
+  <div class="ui container  ">
+    <div class="ui large secondary inverted  menu">
+      <a class="toc item">
+        <i class="ui icon big bars white"></i>
+      </a>
+      <a class="item item_menu_horizontal" href="/">Home</a>
+      <!--  Fim Pesquisar -->
+    </div><!--  Fim Menu -->
+  </div><!--  Fim Container -->
+</div><!--  Fim Barra -->

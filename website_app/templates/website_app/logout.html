@@ -1,0 +1,21 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    {% include 'website_app/includes/cabecalho.html' %}
+</head>
+
+<body>
+    {% block content %}
+    <div class="ui text container  center aligned" style="margin-top:2em">
+        <p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
+
+        <p><a href="{% url 'core:website_app:Login' %}">{% trans 'Log in again' %}</a></p>
+    </div>
+    {% endblock %}
+
+</body>
+
+</html>
