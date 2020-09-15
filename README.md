@@ -1,4 +1,7 @@
-# Khunters
-Site e API Khunters
+# Projeto Khunters
 
-https://khunters.herokuapp.com/
+Site e API
+
+https://khunters.herokuapp.com
+
+https://khunters-staging.herokuapp.com
