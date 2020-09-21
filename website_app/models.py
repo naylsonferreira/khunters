@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
@@ -78,3 +78,11 @@ class Captura(models.Model):
 
     def get_absolute_url(self):
         return reverse('core:website_app:index')
+
+class Mochila(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    personagem = models.ForeignKey(Personagem, on_delete=models.PROTECT,null=True,blank=True)
+    quantidade = models.IntegerField(default=0,null=True,blank=True)
+
+    def __str__(self):
+        return str(self.user)+' - '+str(self.personagem)
