@@ -12,7 +12,6 @@ router = routers.DefaultRouter()
 router.register('jogador', JogadorList, 'jogador')
 router.register('objeto_er', Objeto_erList, 'objeto_er')
 router.register('objeto_er_map', Objeto_er_mapList, 'objeto_er_map')
-router.register('captura', CapturaList, 'captura')
 
 urlpatterns = router.urls
 # *************************************************
@@ -25,5 +24,6 @@ app_name="api_app"
 urlpatterns +=[
     path('personagens/',personagens_proximos,name='personagens_proximos'),
     path('me/',me,name='me'),
+    path('mochila/',mochila,name='mochila'),
     path('job_check_online_users/',job_check_online_users,name='job_check_online_users')
 ]

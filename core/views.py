@@ -1,15 +1,15 @@
 from django.shortcuts import render,redirect
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
 from django.http import JsonResponse,HttpResponse
 from django.utils import timezone
-from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate, REDIRECT_FIELD_NAME
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import user_passes_test
 from rest_framework import viewsets
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView
@@ -17,7 +17,6 @@ from .forms import *
 from .serializers import *
 import os
 import json
-
 @csrf_exempt
 def singup_json(request):
     try:
@@ -111,3 +110,13 @@ class ProfileUpdateView(UpdateView):
         if instancia.user.pk != request.user.pk and not request.user.is_superuser:
             return redirect(instancia)
         return super(ProfileUpdateView, self).dispatch(request, *args, **kwargs)
+
+def login_staff_required(function=None):
+    actual_decorator = user_passes_test(
+        lambda u: u.is_staff,
+        login_url="/",
+        redirect_field_name=None
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator

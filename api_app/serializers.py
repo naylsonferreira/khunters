@@ -34,3 +34,14 @@ class JogadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jogador
         fields = "__all__"
+
+class PersonagemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Personagem
+        fields = "__all__"
+
+class MochilaSerializer(serializers.ModelSerializer):
+    personagem = PersonagemSerializer(many=False, read_only=True)
+    class Meta:
+        model = Mochila
+        fields = "__all__"
