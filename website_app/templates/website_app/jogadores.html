@@ -47,7 +47,7 @@
     <tbody>
       {% for item in jogadores %}
       <tr>
-        <td>{{item.user.profile.nome}}</td>
+        <td>{{item.user.profile.nome|default:item.user}}</td>
         <td>{{item.user.profile.idade}} Anos</td>
         <td>
           {% if item.online %}
