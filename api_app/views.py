@@ -32,10 +32,10 @@ class CapturaList(viewsets.ModelViewSet):
     serializer_class = CapturaSerializer
 
 def criar_automaticamente(latitude,longitude):
-    lista = Objeto_er.objects.all()[:2]
+    lista = Objeto_er.objects.all()
     for obj_er in lista:
-        latitude = latitude  - 0.0001 #(0.0002 * randrange(2) )
-        longitude = longitude  - 0.0001  #(0.0001 * randrange(3) )
+        latitude = latitude  - (0.0001 * randrange(9) )
+        longitude = longitude  - (0.0001 * randrange(9) )
         Objeto_er_map.objects.get_or_create(objeto_er_id=obj_er.id,latitude = latitude,longitude = longitude)
     
 
@@ -54,8 +54,7 @@ def personagens_proximos(request):
             avatar = request.headers["Avatar"]
         except:
             avatar = "default"
-        
-        # print(latitude,longitude)
+
         localizacao_player = (latitude,longitude)
     except:
         erro = "Enviar a localizacao latitude e longitude via cabeçalho"
@@ -82,7 +81,7 @@ def personagens_proximos(request):
         try:
             localizacao_personagem = (obj_er_map.latitude,obj_er_map.longitude)
             distancia = 1000 * distance(localizacao_player, localizacao_personagem).km
-            if distancia <= 100: # Mostrar personagens com 500 metros ou menos do jogador
+            if distancia <= 50: # Mostrar personagens com 500 metros ou menos do jogador
                 j = Objeto_er_mapSerializer(obj_er_map)
                 personagens.append(j.data)
         except:
@@ -105,8 +104,6 @@ def personagens_proximos(request):
         "jogadores":jogadores,
         "mochila":mochila
     }
-
-    # Jogador.objects.all().exclude(pk=jogador.pk).update(online=False)
     
     return JsonResponse(resultado,safe=False)
 
@@ -149,7 +146,6 @@ def mochila(request, format=None):
             mochila.quantidade += int(quantidade)
             if mochila.quantidade < 0: mochila.quantidade = 0
             mochila.save()
-            print(mochila.quantidade)
         except:
             error = {"personagem": "Obrigatorio","quantidade": "Obrigatorio"}
             return JsonResponse({"error":error},status=400,safe=False)
