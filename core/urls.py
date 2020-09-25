@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework.authtoken import views as auth_token
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -12,7 +11,7 @@ router.register('profile/json', ProfileJson, 'profile_json')
 
 app_name="core"
 urlpatterns = [
-    path('login/json/', auth_token.obtain_auth_token,name='login_json'),
+    path('login/json/',login_json,name='login_json'),
     path('login/',auth_views.LoginView.as_view(template_name="core/login.html",redirect_authenticated_user=True),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name="core/logout.html"),name='logout'),
     path('singup/json/',singup_json,name='singup_json'),
