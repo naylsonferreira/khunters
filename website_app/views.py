@@ -7,6 +7,8 @@ from django.urls import reverse_lazy
 
 def index(request):
     contexto = {}
+    Personagem.objects.get_or_create(descricao="Moeda Dourada",prefab="MoedaDourada")
+    Objeto_er.objects.get_or_create(personagem=Personagem.objects.first())
     return render(request, 'website_app/index.html', contexto)
 
 

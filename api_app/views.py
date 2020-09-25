@@ -9,22 +9,11 @@ import json
 import time
 from random import randrange
 from math import sqrt
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.parsers import JSONParser,MultiPartParser,FormParser
 from django.views.decorators.csrf import csrf_exempt
 from geopy.distance import distance
-
-#Acesso ao usuario via Token
-#request.user will be a Django User instance.
-#request.auth will be a rest_framework.authtoken.models.Token instance.
-
-# ViewSets define the view behavior.
-# @permission_classes((IsAuthenticatedOrReadOnly,))
-# class ProdutoList(viewsets.ModelViewSet):
-#     queryset = Produto.objects.all()
-#     serializer_class = ProdutoSerializer
-#     def get_queryset(self):
-#         return self.queryset.filter(em_estoque=True)
 
 class JogadorList(viewsets.ModelViewSet):
     queryset = Jogador.objects.all()
@@ -43,10 +32,10 @@ class CapturaList(viewsets.ModelViewSet):
     serializer_class = CapturaSerializer
 
 def criar_automaticamente(latitude,longitude):
-    lista = Objeto_er.objects.all()[:2]
+    lista = Objeto_er.objects.all()
     for obj_er in lista:
-        latitude = latitude  - (0.0002 * randrange(2) )
-        longitude = longitude  - (0.0001 * randrange(3) )
+        latitude = latitude  - (0.0001 * randrange(9) )
+        longitude = longitude  - (0.0001 * randrange(9) )
         Objeto_er_map.objects.get_or_create(objeto_er_id=obj_er.id,latitude = latitude,longitude = longitude)
     
 
@@ -65,20 +54,22 @@ def personagens_proximos(request):
             avatar = request.headers["Avatar"]
         except:
             avatar = "default"
-        
-        print(latitude,longitude)
+
         localizacao_player = (latitude,longitude)
     except:
         erro = "Enviar a localizacao latitude e longitude via cabeçalho"
         return JsonResponse(erro,status=400,safe=False)
     personagens = []
     jogadores = []
-
-    try:
-        jogador = Token.objects.get(key=request.auth).user.jogador
-    except:
-        jogador = Jogador(user=Token.objects.get(key=request.auth).user)
+    mochila = []
     
+    if request.auth:
+        user = Token.objects.get(key=request.auth).user
+    else:
+        user = request.user
+    
+    jogador = Jogador.objects.get(user=user)
+
     jogador.latitude = latitude
     jogador.longitude = longitude
     jogador.avatar = avatar
@@ -90,7 +81,7 @@ def personagens_proximos(request):
         try:
             localizacao_personagem = (obj_er_map.latitude,obj_er_map.longitude)
             distancia = 1000 * distance(localizacao_player, localizacao_personagem).km
-            if distancia <= 100: # Mostrar personagens com 500 metros ou menos do jogador
+            if distancia <= 50: # Mostrar personagens com 500 metros ou menos do jogador
                 j = Objeto_er_mapSerializer(obj_er_map)
                 personagens.append(j.data)
         except:
@@ -106,12 +97,13 @@ def personagens_proximos(request):
             pass
 
     if len(personagens) == 0 : criar_automaticamente(latitude,longitude)
+    for item in Mochila.objects.all().filter(user=user):
+        mochila.append({"prefab":item.personagem.prefab, "quantidade":item.quantidade})
     resultado = {
         "personagens":personagens,
-        "jogadores":jogadores
+        "jogadores":jogadores,
+        "mochila":mochila
     }
-
-    # Jogador.objects.all().exclude(pk=jogador.pk).update(online=False)
     
     return JsonResponse(resultado,safe=False)
 
@@ -129,6 +121,36 @@ def me(request):
         jogador.save()
 
     return JsonResponse(JogadorSerializer(jogador,many=False).data,safe=False)
+
+@api_view(['GET','POST'])
+@parser_classes([JSONParser,MultiPartParser,FormParser])
+def mochila(request, format=None):
+    if request.auth:
+        user = Token.objects.get(key=request.auth).user
+    else:
+        user = request.user
+
+    if request.method == 'POST':
+        try:
+            try:
+                objeto_er_map = request.data["objeto_er_map"]
+                objeto_er_map = Objeto_er_map.objects.get(id=objeto_er_map)
+                personagem = objeto_er_map.objeto_er.personagem
+                objeto_er_map.delete()
+            except:
+                personagem = request.data["personagem"]
+                personagem = Personagem.objects.get(id=personagem)
+            quantidade = request.data["quantidade"]
+            Mochila.objects.get_or_create(user=user,personagem=personagem)
+            mochila = Mochila.objects.get(user=user,personagem=personagem)
+            mochila.quantidade += int(quantidade)
+            if mochila.quantidade < 0: mochila.quantidade = 0
+            mochila.save()
+        except:
+            error = {"personagem": "Obrigatorio","quantidade": "Obrigatorio"}
+            return JsonResponse({"error":error},status=400,safe=False)
+    mochila = MochilaSerializer(Mochila.objects.all().filter(user=user), many=True).data
+    return JsonResponse(mochila,safe=False)
 
 def job_check_online_users(request):
     time.sleep(10)

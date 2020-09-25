@@ -1,4 +1,5 @@
 from django.conf import settings
+from rest_framework.authtoken.models import Token
 
 def core_middleware(get_response):
     # One-time configuration and initialization.
