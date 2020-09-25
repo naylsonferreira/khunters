@@ -17,6 +17,38 @@ from .forms import *
 from .serializers import *
 import os
 import json
+
+
+@csrf_exempt
+def login_json(request):
+    resultado = {
+        "error":"Campos obrigatorios faltando",
+        "campos":{"email":"","password":""}
+        }
+    if request.method == 'POST':
+        try:
+            dados = json.loads(request.body)
+            email = dados['email']
+            password = dados['password']
+        except:
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+        
+        try:
+            user = authenticate(username=email, password=password)
+        except:
+            user = None;
+    
+        if user is not None:
+            Token.objects.get_or_create(user=user)
+            token = Token.objects.get(user=user)
+            return JsonResponse({ 'token':token.key },safe=False)
+        resultado = {
+            "error":"Credenciais invalidas",
+            "campos":{"email":"","password":""}
+            }
+    return JsonResponse(resultado,safe=False,status=400)
+
 @csrf_exempt
 def singup_json(request):
     try:
@@ -42,17 +74,16 @@ def singup_json(request):
     except:
         resultado={'email':'E-mail inválido'}
         return JsonResponse(resultado,safe=False,status=400)
-
-    new_user = User(username=email,email=email,password=password)    
+    new_user = User(username=email)
+    new_user.set_password(password)
     try:
         new_user.save()
     except:
         resultado={'email':'E-mail já cadastrado'}
         return JsonResponse(resultado,safe=False,status=400)
     
-    saved_user = User.objects.get(email=email)
-    token = Token(user=saved_user)
-    token.save()
+    saved_user = User.objects.get(username=email)
+    Token.objects.get_or_create(user=saved_user)
     token = Token.objects.get(user=saved_user)
     return JsonResponse({ 'token':token.key },safe=False)
 
@@ -73,8 +104,7 @@ def singup(request):
             user = authenticate(username=username, password=raw_password)
             user.email = user.username
             user.save()
-            token = Token(user=saved_user)
-            token.save()
+            Token.objects.get_or_create(user=user)
             login(request, user)
             return redirect('/')
     else:
