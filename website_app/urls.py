@@ -2,7 +2,7 @@ from django.urls import path
 from .views  import  *
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
-from core.views import login_staff_required
+from .views import login_staff_required
 from django.conf import settings
 
 app_name="website_app"

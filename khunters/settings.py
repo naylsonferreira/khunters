@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'website_app.apps.WebsiteAppConfig',
     'api_app.apps.ApiAppConfig',
     'agentes_app.apps.AgentesAppConfig',
-    'ontology_manager_app.apps.OntologyManagerAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,4 +125,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from core.settings import *
+from core_app.settings import *

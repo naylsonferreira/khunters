@@ -103,3 +103,4 @@ media/
 
 # mypy
 .mypy_cache/
+.DS_Store
