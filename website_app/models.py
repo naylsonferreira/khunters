@@ -1,7 +1,7 @@
-from .models_includes import *
+from .models_includes import NIVEL_DE_AUTISMO, AREA_DE_CONHECIMENTO, DIFICULDADE, TIPO_DE_ARQUIVO, IDIOMA
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
@@ -71,12 +71,12 @@ class Objeto_er(models.Model):
         'Arquivo Principal', upload_to='arquivos/objeto_er/', null=True, blank=True, storage=SERVIDOR_FTP_WEB)
     arquivo_2 = models.FileField(
         'Arquivo Secundário:', upload_to='arquivos/objeto_er/', null=True, blank=True, storage=SERVIDOR_FTP_WEB)
-    #Audio, Video
+    # Audio, Video
     duracao = models.IntegerField(
         "Duração em Minutos", default=0, null=True, blank=True)
 
     def __str__(self):
-        return str(self.personagem)+" - "+str(self.titulo)
+        return str(self.personagem) + " - " + str(self.titulo)
 
     def get_absolute_url(self):
         return reverse('website_app:Objeto_ers')
@@ -116,4 +116,4 @@ class Mochila(models.Model):
     quantidade = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
-        return str(self.user)+' - '+str(self.personagem)
+        return str(self.user) + ' - ' + str(self.personagem)

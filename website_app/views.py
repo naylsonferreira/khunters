@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
-from .models import *
+from .models import Personagem, Objeto_er, Objeto_er_map, Jogador
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 
@@ -33,7 +31,7 @@ def Jogadores(request):
         try:
             lista.append([float(i.longitude.replace(',', '.')),
                           float(i.latitude.replace(',', '.'))])
-        except:
+        except BaseException:
             pass
     contexto = {
         "jogadores": Jogador.objects.all(),
