@@ -1,4 +1,4 @@
-<a class="item" href="{% url 'website_app:index' %}">Inicio</a>
+<a class="item" href="{% url 'website_app:Index' %}">Inicio</a>
 {% if user.is_staff %}
 <a class="item {{item_active_jogador}}" href="{% url 'website_app:Jogadores' %}">Jogadores</a>
 <a class="item {{item_active_objeto_er}}" href="{% url 'website_app:Objeto_ers' %}">Objetos de Aprendizagem</a>
@@ -6,9 +6,9 @@
 <a class="item">Estatísticas</a>
 {% endif %}
 {% if user.is_authenticated %}
-<a class="item " href="{% url 'password_change' %}">Mudar senha</a>
-<a class="item " href="{% url 'Update_profile' user.id %}">Meu perfil</a>
-<a class="right menu item" href="{% url 'logout' %}">Sair</a>
+<a class="item " href="{% url 'core_app:password_change' %}">Mudar senha</a>
+<a class="item " href="">Meu perfil</a>
+<a class="right menu item" href="{% url 'core_app:logout' %}">Sair</a>
 {% else %}
 <a class="right menu item" href="{% url 'core_app:login' %}">Entrar</a>
 {% endif %}
