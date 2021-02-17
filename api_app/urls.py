@@ -1,12 +1,8 @@
 from django.urls import path
-from .views  import  *
-from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from django.conf.urls.static import static
+from .views import JogadorList, Objeto_erList, Objeto_er_mapList, personagens_proximos, me, mochila, job_check_online_users
 
 # *************************************************
 from rest_framework import routers
-from rest_framework.authtoken import views as auth_token
 
 router = routers.DefaultRouter()
 router.register('jogador', JogadorList, 'jogador')
@@ -15,15 +11,15 @@ router.register('objeto_er_map', Objeto_er_mapList, 'objeto_er_map')
 
 urlpatterns = router.urls
 # *************************************************
-from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
-for user in User.objects.all():
-    Token.objects.get_or_create(user=user)
 
-app_name="api_app"
-urlpatterns +=[
-    path('personagens/',personagens_proximos,name='personagens_proximos'),
-    path('me/',me,name='me'),
-    path('mochila/',mochila,name='mochila'),
-    path('job_check_online_users/',job_check_online_users,name='job_check_online_users')
+
+app_name = "api_app"
+urlpatterns += [
+    path('personagens/', personagens_proximos, name='personagens_proximos'),
+    path('me/', me, name='me'),
+    path('mochila/', mochila, name='mochila'),
+    path(
+        'job_check_online_users/',
+        job_check_online_users,
+        name='job_check_online_users')
 ]

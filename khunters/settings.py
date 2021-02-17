@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -38,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'website_app.apps.WebsiteAppConfig',
     'api_app.apps.ApiAppConfig',
-    'agentes_app.apps.AgentesAppConfig',
-    'ontology_manager_app.apps.OntologyManagerAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,4 +125,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from core.settings import *
+from core_app.settings import *  # noqa

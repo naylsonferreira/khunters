@@ -1,15 +1,27 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
-from .models import *
+from .models import Personagem, Objeto_er, Objeto_er_map, Jogador
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import user_passes_test
+
 
 def index(request):
     contexto = {}
-    Personagem.objects.get_or_create(descricao="Moeda Dourada",prefab="MoedaDourada")
+    Personagem.objects.get_or_create(
+        descricao="Moeda Dourada", prefab="MoedaDourada")
     Objeto_er.objects.get_or_create(personagem=Personagem.objects.first())
     return render(request, 'website_app/index.html', contexto)
+
+
+def login_staff_required(function=None):
+    actual_decorator = user_passes_test(
+        lambda u: u.is_staff,
+        login_url="/",
+        redirect_field_name=None
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator
 
 
 def Jogadores(request):
@@ -17,8 +29,9 @@ def Jogadores(request):
     lista = []
     for i in jogadores:
         try:
-            lista.append([float(i.longitude.replace(',', '.')),float(i.latitude.replace(',', '.'))])
-        except:
+            lista.append([float(i.longitude.replace(',', '.')),
+                          float(i.latitude.replace(',', '.'))])
+        except BaseException:
             pass
     contexto = {
         "jogadores": Jogador.objects.all(),
@@ -51,7 +64,7 @@ class JogadorUpdateView(UpdateView):
 
 class JogadorDeleteView(DeleteView):
     model = Jogador
-    success_url = reverse_lazy('core:website_app:Jogadores')
+    success_url = reverse_lazy('website_app:Jogadores')
     template_name = 'website_app/confirm_delete.html'
 
     def get_context_data(self, **kwargs):
@@ -92,7 +105,7 @@ class Objeto_erUpdateView(UpdateView):
 
 class Objeto_erDeleteView(DeleteView):
     model = Objeto_er
-    success_url = reverse_lazy('core:website_app:Objeto_ers')
+    success_url = reverse_lazy('website_app:Objeto_ers')
     template_name = 'website_app/confirm_delete.html'
 
     def get_context_data(self, **kwargs):
@@ -147,7 +160,7 @@ class Objeto_er_mapUpdateView(UpdateView):
 
 class Objeto_er_mapDeleteView(DeleteView):
     model = Objeto_er_map
-    success_url = reverse_lazy('core:website_app:Objeto_er_maps')
+    success_url = reverse_lazy('website_app:Objeto_er_maps')
     template_name = 'website_app/confirm_delete.html'
 
     def get_context_data(self, **kwargs):
